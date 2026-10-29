@@ -1,0 +1,33 @@
+cubes:
+  - name: pokemon_metrics
+    # Use DuckDB's scan function targeting your PySpark output folder
+    # SELECT * FROM iceberg_scan('/home/sumitsarkar/pokemon_lakehouse/data/iceberg_warehouse/default/fct_pokemon_metrics/metadata/v1.metadata.json') --Use this to utilize the metadata json file, this works too
+    sql: >
+      SELECT * FROM iceberg_scan('/home/sumitsarkar/pokemon_lakehouse/data/iceberg_warehouse/default/fct_pokemon_metrics', version = '?')
+
+    # JOIN DEFINITION: Ties the Fact to the Dimension
+    joins:
+      - name: pokemon_types
+        relationship: has_many
+        sql: "{CUBE}.pokemon_id = {pokemon_types}.pokemon_id"
+
+    measures:
+      - name: count
+        type: count
+        title: "Total Pokémon Count"
+
+      - name: average_experience
+        type: avg
+        sql: base_experience
+        title: "Average Base Experience"
+
+      - name: total_weight
+        type: sum
+        sql: weight
+        title: "Total Weight"
+
+    dimensions:
+      - name: id
+        type: number
+        sql: pokemon_id
+        primary_key: true

@@ -1,0 +1,20 @@
+# Python virtual environment
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Local Data Storage (Never upload raw/processed data files)
+data/
+cube_semantic/data
+
+# Cube.dev local caches, logs, and keys
+cube_semantic/.env
+cube_semantic/.cubestore/
+cube_semantic/node_modules/
+cube_semantic/.npm/
+cube_semantic/logs/
+
+# OS specific files
+.DS_Store
+Thumbs.db

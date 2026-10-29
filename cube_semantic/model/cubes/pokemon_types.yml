@@ -1,0 +1,15 @@
+cubes:
+  - name: pokemon_types
+    # SELECT * FROM iceberg_scan('/home/sumitsarkar/pokemon_lakehouse/data/iceberg_warehouse/default/dim_pokemon_types/metadata/v1.metadata.json') --Use this to utilize the metadata json file, this works too
+    sql: >
+      SELECT * FROM iceberg_scan('/home/sumitsarkar/pokemon_lakehouse/data/iceberg_warehouse/default/dim_pokemon_types', version = '?')
+
+    dimensions:
+      - name: pokemon_id
+        type: number
+        sql: pokemon_id
+
+      - name: type_name
+        type: string
+        sql: type_name
+        title: "Elemental Type"
