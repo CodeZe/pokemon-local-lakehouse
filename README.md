@@ -8,6 +8,7 @@ The pipeline ingests raw REST API payloads, processes transactional tables using
 
 ## 🗺️ System Architecture
 
+```
 [Pokemon API] ──(Python: Requests)──> [Bronze Layer: Raw JSON]
                                               │
                                        (PySpark Engine)
@@ -25,7 +26,7 @@ The pipeline ingests raw REST API payloads, processes transactional tables using
                                         (BI Analytics)
                                               ▼
                                      [Apache Superset]
-
+```
 
 ---
 
