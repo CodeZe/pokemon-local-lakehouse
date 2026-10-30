@@ -142,7 +142,7 @@ cubejs create cube_semantic -d duckdb
 cd cube_semantic
 
 # Apply directory symlink fix to handle relative metadata paths
-ln -s /home/\(USER/pokemon_lakehouse/data /home/\)USER/pokemon_lakehouse/cube_semantic/data
+ln -s /home/$USER/pokemon_lakehouse/data /home/$USER/pokemon_lakehouse/cube_semantic/data
 ```
 
 Configure your environment properties within `cube_semantic/.env` using the absolute parameter blocks defined below:
