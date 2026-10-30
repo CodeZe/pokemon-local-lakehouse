@@ -1,9 +1,9 @@
 cubes:
   - name: pokemon_metrics
     # Use DuckDB's scan function targeting your PySpark output folder
-    # SELECT * FROM iceberg_scan('/home/sumitsarkar/pokemon_lakehouse/data/iceberg_warehouse/default/fct_pokemon_metrics/metadata/v1.metadata.json') --Use this to utilize the metadata json file, this works too
+    # SELECT * FROM iceberg_scan('data/iceberg_warehouse/default/fct_pokemon_metrics/metadata/v1.metadata.json') --Use this to utilize the metadata json file, this works too
     sql: >
-      SELECT * FROM iceberg_scan('/home/sumitsarkar/pokemon_lakehouse/data/iceberg_warehouse/default/fct_pokemon_metrics', version = '?')
+      SELECT * FROM iceberg_scan('data/iceberg_warehouse/default/fct_pokemon_metrics', version = '?')
 
     # JOIN DEFINITION: Ties the Fact to the Dimension
     joins:
