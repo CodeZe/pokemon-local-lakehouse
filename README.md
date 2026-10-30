@@ -96,7 +96,7 @@ sudo apt update && sudo apt install -y openjdk-17-jdk
 sudo update-java-alternatives --set java-1.17.0-openjdk-amd64
 
 # Install Node Version Manager (NVM) & Long-Term Support Node
-curl -o- https://githubusercontent.com | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 source ~/.bashrc
 nvm install --lts
 ```
