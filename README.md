@@ -160,6 +160,8 @@ CUBEJS_DB_INIT_SQL=INSTALL iceberg; LOAD iceberg; SET unsafe_enable_version_gues
 Deploy your semantic structure models within `cube_semantic/model/cubes/` and trigger execution:
 ```bash
 # Boot Cube.dev playground engine
+rm -rf ~/pokemon_lakehouse/cube_semantic/.cubestore/
+cd ~/pokemon_lakehouse/cube_semantic
 npm run dev
 ```
 Open `http://localhost:4000` inside your web browser to test metric aggregation layers within the interface sandbox environment.
