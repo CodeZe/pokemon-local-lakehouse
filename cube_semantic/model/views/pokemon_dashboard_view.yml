@@ -1,0 +1,15 @@
+views:
+  - name: pokemon_analytics_view
+    description: "Flattened dataset for Apache Superset reporting"
+    
+    cubes:
+      - join_path: pokemon_metrics
+        includes:
+          - id
+          - count
+          - average_experience
+          - total_weight
+          
+      - join_path: pokemon_types
+        includes:
+          - type_name

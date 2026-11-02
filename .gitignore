@@ -6,6 +6,8 @@ __pycache__/
 
 # Local Data Storage (Never upload raw/processed data files)
 data/
+data/bronze/
+data/iceberg_warehouse/
 cube_semantic/data
 
 # Cube.dev local caches, logs, and keys
@@ -18,3 +20,8 @@ cube_semantic/logs/
 # OS specific files
 .DS_Store
 Thumbs.db
+
+# Apache Superset Assets
+.superset/
+superset.db
+superset_config.py
