@@ -165,3 +165,64 @@ cd ~/pokemon_lakehouse/cube_semantic
 npm run dev
 ```
 Open `http://localhost:4000` inside your web browser to test metric aggregation layers within the interface sandbox environment.
+
+### Step 5: Analytical Visualization Layer Setup (Apache Superset)
+
+To complete the data pipeline, we run Apache Superset on bare metal inside our existing Python virtual environment, serving dashboards without heavy container overlays.
+
+#### 1. Activate Environment and Install Database Drivers
+Open a separate, concurrent WSL 2 terminal window and initialize the PostgreSQL wire adapter:
+```bash
+cd ~/pokemon_lakehouse
+source venv/bin/activate
+pip install psycopg2-binary
+```
+
+#### 2. Configure Cube SQL API Wire Protocol
+Before booting the visualization layer, explicitly force the Cube backend engine to route traffic via standard Postgres ports. Append these lines to the bottom of `~/pokemon_lakehouse/cube_semantic/.env`:
+```env
+CUBEJS_PG_SQL_PORT=5432
+CUBESQL_STREAM_MODE=true
+```
+*Note: Ensure your Cube backend server (`npm run dev`) is active in its terminal tab so it actively listens for connections on port 5432.*
+
+#### 3. Establish Permanent Server Configuration
+Modern versions of Superset require a secure, unique server instance configuration setup to manage sessions.
+
+Generate a unique cryptographic signature string:
+```bash
+openssl rand -base64 42
+```
+Create a dedicated environment file in your root workspace path:
+```python
+# ~/pokemon_lakehouse/superset_config.py
+SECRET_KEY = 'PASTE_YOUR_UNIQUE_RANDOM_STRING_HERE'
+```
+Permanently map the configuration path to your active terminal profile:
+```bash
+echo 'export SUPERSET_CONFIG_PATH=~/pokemon_lakehouse/superset_config.py' >> ~/.bashrc
+source ~/.bashrc
+```
+
+#### 4. Initialize Database Metadata Catalog & Start Server
+Execute the application schema initialization migrations inside your Superset terminal window:
+```bash
+# Initialize internal tracking tables
+superset db upgrade
+
+# Create administrative panel security credentials
+export FLASK_APP=superset
+superset fab create-admin \
+    --username admin \
+    --firstname Data \
+    --lastname Engineer \
+    --email admin@local.lakehouse \
+    --password admin
+
+# Load standard application permissions
+superset init
+
+# Run the bare-metal web dashboard server
+superset run -p 8088 --with-threads --reload --debugger
+```
+Open your host web browser interface directly to `http://localhost:8088` and authenticate using your administrator log-in details.
